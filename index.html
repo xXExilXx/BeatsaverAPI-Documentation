@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeatSaverAPI Documentation</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --heading-color: #ff6b6b;
+            --link-color: #4ecdc4;
+            --code-bg: #2a2a2a;
+            --code-color: #f0f0f0;
+            --method-bg: #2c3e50;
+            --method-border: #3498db;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: var(--heading-color);
+            margin-top: 1.5em;
+        }
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #ff6b6b;
+        }
+        .code-block {
+            position: relative;
+            background-color: var(--code-bg);
+            color: var(--code-color);
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .code-block pre {
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+        }
+        .copy-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #4ecdc4;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .copy-button:hover {
+            background-color: #45b7a7;
+        }
+        .method {
+            background-color: var(--method-bg);
+            border-left: 4px solid var(--method-border);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .method h3 {
+            margin-top: 0;
+            color: #4ecdc4;
+        }
+        .toc {
+            background-color: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .toc h2 {
+            margin-top: 0;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        .toc ul ul {
+            padding-left: 15px;
+        }
+        .toc li {
+            margin-bottom: 10px;
+        }
+        .highlight {
+            background-color: #ff6b6b;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>BeatSaverAPI Documentation</h1>
+
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#getting-started">Getting Started</a></li>
+            <li><a href="#api-endpoints">API Endpoints</a>
+                <ul>
+                    <li><a href="#maps">Maps</a></li>
+                    <li><a href="#users">Users</a></li>
+                    <li><a href="#search">Search</a></li>
+                    <li><a href="#playlists">Playlists</a></li>
+                </ul>
+            </li>
+            <li><a href="#data-models">Data Models</a></li>
+            <li><a href="#usage-examples">Usage Examples</a></li>
+            <li><a href="#best-practices">Best Practices</a></li>
+        </ul>
+    </div>
+
+    <h2 id="introduction">Introduction</h2>
+    <p>Welcome to the <span class="highlight">BeatSaverAPI</span> documentation! This comprehensive guide provides detailed information about API endpoints for retrieving map details, user information, playlists, and performing searches. Whether you're building a Beat Saber companion app or integrating custom maps into your project, this API has got you covered.</p>
+
+    <h2 id="getting-started">Getting Started</h2>
+    <p>To begin using the BeatSaverAPI, you'll need to include the <code>BeatSaverAPI</code> namespace in your project and create an instance of the <code>BeatSaverClient</code> class:</p>
+    <div class="code-block">
+        <button class="copy-button">Copy</button>
+        <pre><code>using BeatSaverAPI;
+using BeatSaverAPI.Models;
+
+var client = new BeatSaverClient();</code></pre>
+    </div>
+
+    <h2 id="api-endpoints">API Endpoints</h2>
+
+    <h3 id="maps">Maps</h3>
+
+    <div class="method">
+        <h3>Get Map by ID</h3>
+        <p>Retrieves detailed information about a specific map using its unique identifier.</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>Task&lt;MapDetail&gt; GetMapById(string id)</code></pre>
+        </div>
+        <p>Example:</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>var map = await client.GetMapById("123456");
+Console.WriteLine($"Map Name: {map.Name}");</code></pre>
+        </div>
+    </div>
+
+    <div class="method">
+        <h3>Get Maps by IDs</h3>
+        <p>Fetches details for multiple maps simultaneously using an array of map IDs.</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>Task&lt;MapDetail[]&gt; GetMapsByIds(string[] ids)</code></pre>
+        </div>
+        <p>Example:</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>var maps = await client.GetMapsByIds(new[] { "123456", "789012" });
+foreach (var map in maps)
+{
+    Console.WriteLine($"Map Name: {map.Name}");
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="method">
+        <h3>Get Map by Hash</h3>
+        <p>Retrieves map information using its unique hash value.</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>Task&lt;MapDetail&gt; GetMapByHash(string hash)</code></pre>
+        </div>
+        <p>Example:</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>var map = await client.GetMapByHash("abcdef1234567890");
+Console.WriteLine($"Map Name: {map.Name}");</code></pre>
+        </div>
+    </div>
+
+    <div class="method">
+        <h3>Get Maps by Uploader</h3>
+        <p>Fetches a collection of maps uploaded by a specific user, with optional pagination.</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>Task&lt;MapDetail[]&gt; GetMapsByUploader(string uploaderId, int page = 0)</code></pre>
+        </div>
+        <p>Example:</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>var maps = await client.GetMapsByUploader("user123", page: 1);
+foreach (var map in maps)
+{
+    Console.WriteLine($"Map Name: {map.Name}");
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="method">
+        <h3>Get Latest Maps</h3>
+        <p>Retrieves the most recently uploaded maps, with optional pagination.</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>Task&lt;MapDetail[]&gt; GetLatestMaps(int page = 0)</code></pre>
+        </div>
+        <p>Example:</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>var latestMaps = await client.GetLatestMaps(page: 0);
+foreach (var map in latestMaps)
+{
+    Console.WriteLine($"Map Name: {map.Name}");
+}</code></pre>
+        </div>
+    </div>
+
+    <h3 id="users">Users</h3>
+
+    <div class="method">
+        <h3>Get User by ID</h3>
+        <p>Fetches detailed information about a user using their unique identifier.</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>Task&lt;UserDetail&gt; GetUserById(string id)</code></pre>
+        </div>
+        <p>Example:</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>var user = await client.GetUserById("user123");
+Console.WriteLine($"User Name: {user.Name}");</code></pre>
+        </div>
+    </div>
+
+    <div class="method">
+        <h3>Get Users by IDs</h3>
+        <p>Retrieves information for multiple users simultaneously using an array of user IDs.</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>Task&lt;UserDetail[]&gt; GetUsersByIds(string[] ids)</code></pre>
+        </div>
+        <p>Example:</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>var users = await client.GetUsersByIds(new[] { "user123", "user456" });
+foreach (var user in users)
+{
+    Console.WriteLine($"User Name: {user.Name}");
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="method">
+        <h3>Get User by Name</h3>
+        <p>Fetches user details using their username.</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>Task&lt;UserDetail&gt; GetUserByName(string name)</code></pre>
+        </div>
+        <p>Example:</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>var user = await client.GetUserByName("JohnDoe");
+Console.WriteLine($"User ID: {user.Id}");</code></pre>
+        </div>
+    </div>
+
+    <h3 id="search">Search</h3>
+
+    <div class="method">
+        <h3>Search Maps</h3>
+        <p>Performs a search query to find maps based on a given string, with optional pagination.</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>Task&lt;SearchResponse&gt; SearchMaps(string query, int page = 0)</code></pre>
+        </div>
+        <p>Example:</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>var searchResult = await client.SearchMaps("Believer", page: 0);
+Console.WriteLine($"Total Results: {searchResult.TotalDocs}");
+foreach (var map in searchResult.Docs)
+{
+    Console.WriteLine($"Map Name: {map.Name}");
+}</code></pre>
+        </div>
+    </div>
+
+    <h3 id="playlists">Playlists</h3>
+
+    <div class="method">
+        <h3>Get Latest Playlists</h3>
+        <p>Retrieves the most recently created playlists, with optional pagination.</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>Task&lt;Playlist[]&gt; GetLatestPlaylists(int page = 0)</code></pre>
+        </div>
+        <p>Example:</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>var playlists = await client.GetLatestPlaylists(page: 0);
+foreach (var playlist in playlists)
+{
+    Console.WriteLine($"Playlist Name: {playlist.Name}");
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="method">
+        <h3>Get Playlist by ID</h3>
+        <p>Fetches detailed information about a specific playlist using its unique identifier.</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>Task&lt;Playlist&gt; GetPlaylistById(string id, int page = 0)</code></pre>
+        </div>
+        <p>Example:</p>
+        <div class="code-block">
+            <button class="copy-button">Copy</button>
+            <pre><code>var playlist = await client.GetPlaylistById("playlist123", page: 0);
+Console.WriteLine($"Playlist Name: {playlist.Name}");</code></pre>
+        </div>
+    </div>
+
+    <h2 id="data-models">Data Models</h2>
+
+    <h3>MapDetail</h3>
+    <div class="code-block">
+        <button class="copy-button">Copy</button>
+        <pre><code>public class MapDetail
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public MapStats Stats { get; set; }
+    // Additional fields...
+}
+
+public class MapStats
+{
+    public int Downloads { get; set; }
+    public int Plays { get; set; }
+    public int Upvotes { get; set; }
+    public int Downvotes { get; set; }
+}</code></pre>
+    </div>
+
+    <h3>UserDetail</h3>
+    <div class="code-block">
+        <button class="copy-button">Copy</button>
+        <pre><code>public class UserDetail
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public UserStats Stats { get; set; }
+    // Additional fields...
+}
+
+public class UserStats
+{
+    public int MapsCreated { get; set; }
+    public int MapsDownloaded { get; set; }
+    // Additional fields...
+}</code></pre>
+    </div>
+
+    <h3>SearchResponse</h3>
+    <div class="code-block">
+        <button class="copy-button">Copy</button>
+        <pre><code>public class SearchResponse
+{
+    public MapDetail[] Docs { get; set; }
+    public int TotalDocs { get; set; }
+    public int Page { get; set; }
+}</code></pre>
+    </div>
+
+    <h3>Playlist</h3>
+    <div class="code-block">
+        <button class="copy-button">Copy</button>
+        <pre><code>public class Playlist
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public PlaylistStats Stats { get; set; }
+    // Additional fields...
+}
+
+public class PlaylistStats
+{
+    public int Maps { get; set; }
+    public int Downloads { get; set; }
+}</code></pre>
+    </div>
+
+    <h2 id="usage-examples">Usage Examples</h2>
+    <p>Here's a comprehensive example demonstrating the usage of multiple endpoints:</p>
+    <div class="code-block">
+        <button class="copy-button">Copy</button>
+        <pre><code>using System;
+using System.Threading.Tasks;
+using BeatSaverAPI;
+using BeatSaverAPI.Models;
+
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        var client = new BeatSaverClient();
+
+        // Get a map by ID
+        var map = await client.GetMapById("123456");
+        Console.WriteLine($"Map: {map.Name} - Downloads: {map.Stats.Downloads}");
+
+        // Search for maps
+        var searchResult = await client.SearchMaps("Imagine Dragons");
+        Console.WriteLine($"Search Results: {searchResult.TotalDocs}");
+        foreach (var result in searchResult.Docs.Take(5))
+        {
+            Console.WriteLine($"- {result.Name}");
+        }
+
+        // Get user details
+        var user = await client.GetUserById("user123");
+        Console.WriteLine($"User: {user.Name} - Maps Created: {user.Stats.MapsCreated}");
+
+        // Get latest playlists
+        var playlists = await client.GetLatestPlaylists();
+        Console.WriteLine("Latest Playlists:");
+        foreach (var playlist in playlists.Take(5))
+        {
+            Console.WriteLine($"- {playlist.Name} (Maps: {playlist.Stats.Maps})");
+        }
+    }
+}</code></pre>
+    </div>
+
+    <h2 id="best-practices">Best Practices</h2>
+    <ol>
+        <li><strong>Error Handling:</strong> Implement robust error handling to catch and process any exceptions that may occur during API calls. This ensures your application remains stable even when facing unexpected responses or network issues.</li>
+        <li><strong>Rate Limiting:</strong> Be mindful of rate limits imposed by the API. Implement appropriate delays between requests or use a rate limiting library to avoid overwhelming the server and potentially getting your access restricted.</li>
+        <li><strong>Caching:</strong> Consider implementing a caching mechanism for frequently accessed data. This can significantly reduce the number of API calls, improve performance, and provide a better user experience, especially for data that doesn't change often.</li>
+        <li><strong>Pagination:</strong> When retrieving large sets of data, always use pagination to limit the amount of data transferred in a single request. This improves response times and reduces the load on both the client and server.</li>
+        <li><strong>Asynchronous Programming:</strong> Utilize asynchronous programming patterns to prevent blocking the main thread during API calls. This keeps your application responsive, especially when dealing with multiple concurrent requests.</li>
+        <li><strong>API Key Management:</strong> If the API requires authentication, securely store and use the API key as per the API's guidelines. Never expose your API key in client-side code or public repositories.</li>
+        <li><strong>Keep Updated:</strong> Stay informed about any changes or updates to the API to ensure your implementation remains compatible. Regularly check the official documentation or subscribe to developer newsletters if available.</li>
+        <li><strong>Logging:</strong> Implement comprehensive logging for API interactions. This will help in debugging, monitoring usage patterns, and identifying potential issues before they become critical.</li>
+        <li><strong>Retry Logic:</strong> Implement a retry mechanism for failed requests, especially for transient errors. This can improve the reliability of your application in the face of temporary network issues or server hiccups.</li>
+        <li><strong>Testing:</strong> Thoroughly test your API integration, including edge cases and error scenarios. Consider using mock responses for testing to avoid unnecessary calls to the live API during development.</li>
+    </ol>
+
+    <p>By adhering to these best practices and leveraging the provided endpoints and models, you can effectively integrate the BeatSaverAPI into your projects, ensuring efficient and reliable access to Beat Saber custom content data.</p>
+
+    <script>
+        document.querySelectorAll('.copy-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const codeBlock = button.nextElementSibling;
+                const code = codeBlock.textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.textContent = 'Copy';
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
