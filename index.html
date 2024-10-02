@@ -345,7 +345,6 @@ Console.WriteLine($"Playlist Name: {playlist.Name}");</code></pre>
     public string Name { get; set; }
     public string Description { get; set; }
     public MapStats Stats { get; set; }
-    // Additional fields...
 }
 
 public class MapStats
@@ -365,14 +364,12 @@ public class MapStats
     public string Id { get; set; }
     public string Name { get; set; }
     public UserStats Stats { get; set; }
-    // Additional fields...
 }
 
 public class UserStats
 {
     public int MapsCreated { get; set; }
     public int MapsDownloaded { get; set; }
-    // Additional fields...
 }</code></pre>
     </div>
 
@@ -395,7 +392,6 @@ public class UserStats
     public string Id { get; set; }
     public string Name { get; set; }
     public PlaylistStats Stats { get; set; }
-    // Additional fields...
 }
 
 public class PlaylistStats
